@@ -2,6 +2,7 @@ import React from 'react'
 import { BsFillPencilFill } from 'react-icons/bs'
 import { AiFillDelete } from 'react-icons/ai'
 import { PrismaClient } from "@prisma/client";
+import AddPlayers from './addPlayers';
 const prisma = new PrismaClient();
 
 const getPlayers = async () => {
@@ -21,13 +22,13 @@ const getPlayers = async () => {
 const Players = async () => {
     const players = await getPlayers();
   return (
-    <section>
-        <h2>Players Database</h2>
+    <section className='max-w-screen-lg mx-auto mt-10 p-4'>
+        <h2 className='text-center text-5xl'>Players Database</h2>
         <div>
-            Add Players
+            <AddPlayers />
         </div>
         <div>
-        <table className="table border-separate space-y-6 text-sm w-6/12 mx-auto">
+        <table className="table border-separate space-y-6 text-sm w-full mx-auto">
         <thead className="bg-blue-500 text-white">
           <tr> 
             <th className="p-3 text-center">Name</th>
