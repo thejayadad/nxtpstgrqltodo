@@ -26,15 +26,17 @@ const DeleteProduct = ({ player }: { player: Player }) => {
     };
   
     const handleModal = () => {
-      setIsOpen(!isOpen);
-    };
+        setIsOpen((curState) => {
+            return !curState;
+        })
+      };
   
     return (
-      <div>
+      <>
         <button onClick={handleModal}>
           Delete
         </button>
-  
+        {isOpen &&
         <div className={isOpen ? "modal modal-open" : "modal"}>
           <div className="modal-box">
             <h3 className="font-bold text-lg">
@@ -42,26 +44,26 @@ const DeleteProduct = ({ player }: { player: Player }) => {
             </h3>
   
             <div className="modal-action">
-              <button type="button" className="btn" onClick={handleModal}>
+              <button className="btn" onClick={handleModal}>
                 No
               </button>
               {!isLoading ? (
                 <button
-                  type="button"
                   onClick={() => handleDelete(player.id)}
                   className="btn btn-primary"
                 >
                   Yes
                 </button>
               ) : (
-                <button type="button" className="btn loading">
+                <button className="btn loading">
                   Deleting...
                 </button>
               )}
             </div>
           </div>
         </div>
-      </div>
+            }
+      </>
     );
   };
   

@@ -40,15 +40,17 @@ type Player = {
     };
   
     const handleModal = () => {
-      setIsOpen(!isOpen);
-    };
+        setIsOpen((curState) => {
+            return !curState;
+        })
+      };
   
     return (
       <div>
         <button className="btn btn-info btn-sm" onClick={handleModal}>
           Edit
         </button>
-  
+        { isOpen &&
         <div className={isOpen ? "modal modal-open" : "modal"}>
           <div className="modal-box">
             <h3 className="font-bold text-lg">Update {player.name}</h3>
@@ -104,6 +106,7 @@ type Player = {
             </form>
           </div>
         </div>
+        }
       </div>
     );
   };

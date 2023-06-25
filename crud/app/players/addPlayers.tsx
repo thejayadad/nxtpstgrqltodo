@@ -33,19 +33,26 @@ const AddPlayers = ({ teams }: { teams: Team[] }) => {
       };
 
     const handleModal = () => {
-        setIsOpen(!isOpen);
+        setIsOpen((curState) => {
+            return !curState;
+        })
       };
   return (
     <section>
 
         <div>
+        <h3 className="font-bold text-lg">Add New Players</h3>
         <button className="bg-gray-400 p-5 rounded-md text-white cursor-pointer" onClick={handleModal}>
         Add New
       </button>
 
-        <div className={isOpen ? "modal modal-open" : "modal"}>
+        <div className={isOpen ? (
+            
+            "modal modal-open" ):( "modal"
+            )
+            }>
         <div className="modal-box">
-        <h3 className="font-bold text-lg">Add New Players</h3>
+        { isOpen && 
         <form onSubmit={handleSubmit}>
         <div className="form-control w-full">
               <input
@@ -83,7 +90,7 @@ const AddPlayers = ({ teams }: { teams: Team[] }) => {
               </select>
             </div>
             <div className="modal-action">
-              <button type="button" className="btn" onClick={handleModal}>
+              <button type="submit" onClick={handleModal}>
                 Close
               </button>
               {!isLoading ? (
@@ -99,7 +106,7 @@ const AddPlayers = ({ teams }: { teams: Team[] }) => {
 
 
         </form>
-
+            }
         </div>
         </div>
         </div>
