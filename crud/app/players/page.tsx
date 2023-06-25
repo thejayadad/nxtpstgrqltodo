@@ -17,15 +17,21 @@ const getPlayers = async () => {
     });
     return res;
   };
+  
+const getTeams = async () => {
+    const res = await prisma.team.findMany();
+    return res;
+  };
+  
 
 
 const Players = async () => {
-    const players = await getPlayers();
-  return (
+    const [players, teams] = await Promise.all([getPlayers(), getTeams()]);
+    return (
     <section className='max-w-screen-lg mx-auto mt-10 p-4'>
         <h2 className='text-center text-5xl'>Players Database</h2>
         <div>
-            <AddPlayers />
+            <AddPlayers teams={teams} />
         </div>
         <div>
         <table className="table border-separate space-y-6 text-sm w-full mx-auto">

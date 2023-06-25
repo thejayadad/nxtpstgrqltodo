@@ -1,8 +1,36 @@
 'use client'
 import { useState, SyntheticEvent } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Team, } from "@prisma/client"; // Add the import statement for useClient
 
-const AddPlayers = () => {
+
+const AddPlayers = ({ teams }: { teams: Team[] }) => {
+    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
+    const [team, setTeam] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);  
+    
+
+
+    const router = useRouter();
+
+    const handleSubmit = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        await axios.post("/api/players", {
+          name: name,
+          number: Number(number),
+          teamId: Number(team),
+        });
+        setIsLoading(false);
+        setName("");
+        setNumber("");
+        setTeam("");
+        router.refresh();
+        setIsOpen(false);
+      };
 
     const handleModal = () => {
         setIsOpen(!isOpen);
@@ -18,43 +46,47 @@ const AddPlayers = () => {
         <div className={isOpen ? "modal modal-open" : "modal"}>
         <div className="modal-box">
         <h3 className="font-bold text-lg">Add New Players</h3>
-        <form>
+        <form onSubmit={handleSubmit}>
         <div className="form-control w-full">
-              <label className="label font-bold">Product Name</label>
               <input
                 type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="input input-bordered"
-                placeholder="Product Name"
+                placeholder="Name"
               />
             </div>
             <div className="form-control w-full">
-              <label className="label font-bold">Price</label>
               <input
-                type="text"
+                type="number"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
                 className="input input-bordered"
-                placeholder="Price"
+                placeholder="Number"
               />
             </div>
             <div className="form-control w-full">
-              <label className="label font-bold">Brand</label>
+              <label className="label font-bold">TEAM</label>
               <select
                 className="select select-bordered"
+                value={team}
+                onChange={(e) => setTeam(e.target.value)}
               >
                 <option value="" disabled>
-                  Select a Brand
+                  Select a Team
                 </option>
-                {/* {brands.map((brand) => (
-                  <option value={brand.id} key={brand.id}>
-                    {brand.name}
+                {teams.map((team) => (
+                  <option value={team.id} key={team.id}>
+                    {team.name}
                   </option>
-                ))} */}
+                ))}
               </select>
             </div>
             <div className="modal-action">
               <button type="button" className="btn" onClick={handleModal}>
                 Close
               </button>
-              {/* {!isLoading ? (
+              {!isLoading ? (
                 <button type="submit" className="btn btn-primary">
                   Save
                 </button>
@@ -62,7 +94,7 @@ const AddPlayers = () => {
                 <button type="button" className="btn loading">
                   Saving...
                 </button>
-              )} */}
+              )}
             </div>
 
 
