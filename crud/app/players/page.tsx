@@ -1,6 +1,4 @@
 import React from 'react'
-import { BsFillPencilFill } from 'react-icons/bs'
-import { AiFillDelete } from 'react-icons/ai'
 import AddPlayers from './addPlayers';
 import DeletePlayer from './deletePlayer';
 import {prisma} from "../../lib/db"
@@ -37,7 +35,7 @@ const Players = async () => {
         </div>
         <div>
         <table className="table border-separate space-y-6 text-sm w-full mx-auto">
-        <thead className="bg-blue-500 text-white">
+        <thead className="bg-gray-500 text-white">
           <tr> 
             <th className="p-3 text-center">Name</th>
             <th className="p-3 text-center">Number</th>
@@ -49,16 +47,16 @@ const Players = async () => {
         <tbody>
         {players.map((player) => (
 
-        <tr key={player.id} className="bg-blue-200">
+        <tr key={player.id} className="bg-gray-200">
             <td className="p-3 font-medium capitalize text-center">{player.name}</td>
             <td className="text-center">{player.number}</td>
             <td className="p-3 text-center uppercase">{player.team.name}</td>
              <td className="p-3 flex justify-center">
-              <a className="text-yellow-600 hover:text-yellow-300 mx-2">
+              <a className="text-yellow-600 font-bold mx-2">
               <UpdatePlayer teams={teams} player={player} />
               </a>
               <a
-                className="text-red-600 hover:text-red-300 ml-2"
+                className="text-red-600 font-bold ml-2"
               >
               <DeletePlayer player={player} />
               </a>
