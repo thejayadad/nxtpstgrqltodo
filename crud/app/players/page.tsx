@@ -1,9 +1,25 @@
 import React from 'react'
 import { BsFillPencilFill } from 'react-icons/bs'
 import { AiFillDelete } from 'react-icons/ai'
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+const getPlayers = async () => {
+    const res = await prisma.player.findMany({
+      select: {
+        id: true,
+        name: true,
+        number: true,
+        teamId: true,
+        team: true,
+      },
+    });
+    return res;
+  };
 
 
-const Players = () => {
+const Players = async () => {
+    const players = await getPlayers();
   return (
     <section>
         <h2>Players Database</h2>
@@ -14,18 +30,20 @@ const Players = () => {
         <table className="table border-separate space-y-6 text-sm w-6/12 mx-auto">
         <thead className="bg-blue-500 text-white">
           <tr> 
-            <th className="p-3">Name</th>
-            <th className="p-3">Number</th>
+            <th className="p-3 text-center">Name</th>
+            <th className="p-3 text-center">Number</th>
           
             <th className="p-3 text-center">Team</th>
             <th className="p-3 text-center">Action</th>
           </tr>
         </thead>
         <tbody>
-        <tr className="bg-blue-200">
-            <td className="p-3 font-medium capitalize">Jace Goat</td>
-            <td className="text-center">35</td>
-            <td className="p-3 text-center uppercase">Razor Backs</td>
+        {players.map((player, index) => (
+
+        <tr key={player.id} className="bg-blue-200">
+            <td className="p-3 font-medium capitalize text-center">{player.name}</td>
+            <td className="text-center">{player.number}</td>
+            <td className="p-3 text-center uppercase">{player.team.name}</td>
              <td className="p-3 flex justify-center">
               <button className="text-yellow-600 hover:text-yellow-300 mx-2">
               <BsFillPencilFill style={{fontSize: "24px"}} />
@@ -37,6 +55,7 @@ const Players = () => {
               </button>
             </td>
           </tr>
+            ))}
         </tbody>
         </table>
         </div>
