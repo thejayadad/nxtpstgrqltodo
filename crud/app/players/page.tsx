@@ -3,6 +3,7 @@ import { BsFillPencilFill } from 'react-icons/bs'
 import { AiFillDelete } from 'react-icons/ai'
 import { PrismaClient } from "@prisma/client";
 import AddPlayers from './addPlayers';
+import DeletePlayer from './deletePlayer';
 const prisma = new PrismaClient();
 
 const getPlayers = async () => {
@@ -15,6 +16,7 @@ const getPlayers = async () => {
         team: true,
       },
     });
+    
     return res;
   };
   
@@ -58,7 +60,7 @@ const Players = async () => {
               <button
                 className="text-red-600 hover:text-red-300 ml-2"
               >
-              <AiFillDelete style={{fontSize: "24px"}} />
+              <DeletePlayer player={player} />
               </button>
             </td>
           </tr>
