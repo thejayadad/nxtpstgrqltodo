@@ -50,17 +50,17 @@ const AddPlayers = ({ teams }: { teams: Team[] }) => {
         { isOpen && 
           <div className={isOpen ? (
             
-            "modal modal-open" ):( "modal"
+            "modal-open" ):( "modal"
             )
             }>
-         <div className="modal-box">
+         <div>
         <form onSubmit={handleSubmit}>
         <div className="form-control w-full">
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="input input-bordered"
+                className="input input-bordered outline-none border-b"
                 placeholder="Name"
               />
             </div>
@@ -69,18 +69,19 @@ const AddPlayers = ({ teams }: { teams: Team[] }) => {
                 type="number"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
-                className="input input-bordered"
+                className="input input-bordered outline-none border-b"
                 placeholder="Number"
               />
             </div>
             <div className="form-control w-full">
-              <label className="label font-bold">TEAM</label>
               <select
                 className="select select-bordered"
                 value={team}
                 onChange={(e) => setTeam(e.target.value)}
               >
-                <option value="" disabled>
+                <option
+                className="w-full outline-none"
+                value="" disabled>
                   Select a Team
                 </option>
                 {teams.map((team) => (
@@ -90,12 +91,15 @@ const AddPlayers = ({ teams }: { teams: Team[] }) => {
                 ))}
               </select>
             </div>
-            <div className="modal-action">
-              <button type="submit" onClick={handleModal}>
+            <div>
+              <button
+              className="mr-3 p-2 bg-orange-200"
+              type="submit" onClick={handleModal}>
                 Close
               </button>
               {!isLoading ? (
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" 
+                className="p-2 bg-green-500">
                   Save
                 </button>
               ) : (

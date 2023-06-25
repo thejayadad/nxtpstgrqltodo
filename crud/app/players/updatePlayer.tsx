@@ -51,36 +51,33 @@ type Player = {
           Edit
         </button>
         { isOpen &&
-        <div className={isOpen ? "modal modal-open" : "modal"}>
-          <div className="modal-box">
+        <div className={isOpen ? "modal-open" : "modal"}>
+          <div className="modal-box bg-white border-md text-black p-3">
             <h3 className="font-bold text-lg">Update {player.name}</h3>
             <form onSubmit={handleUpdate}>
               <div className="form-control w-full">
-                <label className="label font-bold">Player Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="input input-bordered"
+                  className="input input-bordered outline-none border-b bg-transparent"
                   placeholder="PlayerName"
                 />
               </div>
               <div className="form-control w-full">
-                <label className="label font-bold">Price</label>
                 <input
-                  type="text"
+                  type="number"
                   value={number}
                   onChange={(e) => setNumber(Number(e.target.value))}
-                  className="input input-bordered"
+                  className="input input-bordered outline-none border-b bg-transparent"
                   placeholder="Number"
                 />
               </div>
               <div className="form-control w-full">
-                <label className="label font-bold">Team</label>
                 <select
                   value={team}
                   onChange={(e) => setTeam(Number(e.target.value))}
-                  className="select select-bordered"
+                  className="select select-bordered bg-transparent w-full"
                 >
                   {teams.map((team) => (
                     <option value={team.id} key={team.id}>
@@ -90,12 +87,15 @@ type Player = {
                 </select>
               </div>
               <div className="modal-action">
-                <button type="button" className="btn" onClick={handleModal}>
+                <button type="button" 
+              className="mr-3 p-2 bg-orange-200"
+              onClick={handleModal}>
                   Close
                 </button>
                 {!isLoading ? (
-                  <button type="submit" className="btn btn-primary">
-                    Update
+                  <button type="submit" 
+                  className="p-2 bg-green-500">
+                  Update
                   </button>
                 ) : (
                   <button type="button" className="btn loading">
