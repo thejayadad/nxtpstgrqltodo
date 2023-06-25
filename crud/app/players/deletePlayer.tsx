@@ -37,22 +37,23 @@ const DeleteProduct = ({ player }: { player: Player }) => {
           Delete
         </button>
         {isOpen &&
-        <div className={isOpen ? "modal modal-open" : "modal"}>
-          <div className="modal-box">
+        <div className={isOpen ? "modal-open" : "modal"}>
+          <div className="modal-box bg-white border-md text-black p-3">
             <h3 className="font-bold text-lg">
               Are sure to delete {player.name}?
             </h3>
   
-            <div className="modal-action">
-              <button className="btn" onClick={handleModal}>
+            <div className="modal-action text-center">
+              <button 
+              className="mr-3 p-2 bg-orange-200"
+              onClick={handleModal}>
                 No
               </button>
               {!isLoading ? (
                 <button
                   onClick={() => handleDelete(player.id)}
-                  className="btn btn-primary"
-                >
-                  Yes
+                  className="p-2 bg-green-500">
+                 Yes
                 </button>
               ) : (
                 <button className="btn loading">
